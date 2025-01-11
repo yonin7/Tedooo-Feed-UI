@@ -1,0 +1,37 @@
+.navigation-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 17px;
+  height: 100%;
+}
+
+.navigation-container button {
+  height: 100%;
+  border: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding-inline: 1px 15px;
+  color: rgb(148, 151, 150);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  transition: color 0.35s ease;
+}
+.navigation-container button:hover,
+.navigation-container button.active {
+  color: #2db8a1;
+  border-bottom: 2px solid #2db8a1;
+}
+.navigation-container button path {
+  stroke: rgb(148, 151, 150);
+  transition: all 0.35s ease;
+}
+.navigation-container button:hover path,
+.navigation-container button.active path {
+  stroke: #2db8a1;
+}
