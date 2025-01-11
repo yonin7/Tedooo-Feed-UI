@@ -5,7 +5,7 @@ import FeedFetch from "../hooks/feedFetch.tsx";
 
 const Feed: React.FC = () => {
   const [page, setPage] = useState(0);
-  const { loading, error, feedItems, hasMore } = FeedFetch(page);
+  const { loading, feedItems, hasMore } = FeedFetch(page);
   const observer = useRef();
 
   const lastElement = useCallback(

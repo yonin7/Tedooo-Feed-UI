@@ -34,7 +34,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ item }) => {
   return (
     <>
       <div className="feed-header">
-        <img src={item.avatar} />
+        <img src={item.avatar} alt="user" />
         <div className="user-details">
           <h4>{item.username}</h4>
           <p>{item.shopName}</p>
@@ -48,7 +48,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ item }) => {
         }
       >
         {item.images.slice(0, 2).map((src, index) => (
-          <img key={index} src={src} alt={`Post image ${index + 1}`} />
+          <img key={index} src={src} alt={`Post  ${index + 1}`} />
         ))}
       </div>
       <div className="feed-footer">
