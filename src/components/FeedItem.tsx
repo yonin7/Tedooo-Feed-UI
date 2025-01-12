@@ -14,12 +14,40 @@ interface FeedItemProps {
 const FeedItem: React.FC<FeedItemProps> = ({ item }) => {
   const [likes, setLikes] = useState(item.likes);
   const [liked, setLiked] = useState(item.didLike);
-  console.log(item);
+  const [timeAgo, setTimeAgo] = useState<string>("");
 
   useEffect(() => {
     sendImpression(item.id);
-  }, [item.id]);
 
+    const calculateTimeAgo = () => {
+      const currentDate = new Date();
+      const postDate = new Date(item.date);
+      const secondsAgo = Math.floor(
+        (currentDate.getTime() - postDate.getTime()) / 1000
+      );
+
+      const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+
+      if (secondsAgo < 60) {
+        setTimeAgo(rtf.format(-secondsAgo, "second"));
+      } else if (secondsAgo < 3600) {
+        setTimeAgo(rtf.format(-Math.floor(secondsAgo / 60), "minute"));
+      } else if (secondsAgo < 86400) {
+        setTimeAgo(rtf.format(-Math.floor(secondsAgo / 3600), "hour"));
+      } else if (secondsAgo < 2592000) {
+        setTimeAgo(rtf.format(-Math.floor(secondsAgo / 86400), "day"));
+      } else if (secondsAgo < 31536000) {
+        setTimeAgo(rtf.format(-Math.floor(secondsAgo / 2592000), "month"));
+      } else {
+        setTimeAgo(rtf.format(-Math.floor(secondsAgo / 31536000), "year"));
+      }
+    };
+
+    calculateTimeAgo();
+
+    const intervalId = setInterval(calculateTimeAgo, 60000);
+    return () => clearInterval(intervalId);
+  }, [item.date, item.id]);
   const likedHandler = () => {
     setLikes((prev) => {
       let newLikes = prev;
@@ -38,7 +66,7 @@ const FeedItem: React.FC<FeedItemProps> = ({ item }) => {
         <div className="user-details">
           <h4>{item.username}</h4>
           <p>{item.shopName}</p>
-          <span>{item.date}</span>
+          <span>{timeAgo}</span>
         </div>
       </div>
       <p className="feed-text">{item.text}</p>
