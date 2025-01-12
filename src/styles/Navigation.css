@@ -35,3 +35,8 @@
 .navigation-container button.active path {
   stroke: #2db8a1;
 }
+@media (max-width: 767px) {
+  .navigation-container button {
+    display: none;
+  }
+}
